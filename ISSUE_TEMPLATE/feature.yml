@@ -1,0 +1,51 @@
+name: Feature request
+description: Propose a new feature or enhancement
+labels: ["enhancement", "triage"]
+body:
+  - type: input
+    id: repo
+    attributes:
+      label: Target repository
+      placeholder: openaiflex/connector-re4de
+    validations:
+      required: true
+  - type: dropdown
+    id: deliverable
+    attributes:
+      label: Deliverable this supports
+      options:
+        - D1.1 — Planning methodology
+        - D1.2 — Grid Data Space solutions
+        - D1.3 — Edge AI components
+        - D2.1 — Stakeholder requirements
+        - D3.1 — Lab validation
+        - D4.x — Rome / Austria pilots
+        - D5.1 — Third-country pilot
+        - D6.x — Open-source / dissemination / compliance
+        - Not deliverable-linked (nice-to-have)
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      placeholder: What user / operator / developer problem does this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: checkboxes
+    id: adr
+    attributes:
+      label: Decision scope
+      options:
+        - label: This change does NOT contradict any existing ADR
+        - label: If it does, I will propose a new or superseding ADR

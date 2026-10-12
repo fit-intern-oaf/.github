@@ -1,0 +1,28 @@
+name: Security issue (DO NOT USE for real vulnerabilities)
+description: This template exists only to redirect reporters to the private channel.
+labels: ["security", "do-not-disclose"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Stop
+
+        **Do not report security vulnerabilities as public issues.**
+
+        Please use one of the following private channels instead:
+
+        1. GitHub private vulnerability reporting
+           (Security tab → Advisories → Report a vulnerability)
+        2. Email `pranav.jayant.kulkarni@fit.fraunhofer.de`
+
+        See `SECURITY.md` for scope, response targets, and disclosure policy.
+
+        If you continue filling this form, your report will be visible to the
+        public and may put users at risk.
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmation
+      options:
+        - label: I understand this is public and this is NOT a real vulnerability.
+          required: true

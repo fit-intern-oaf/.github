@@ -1,0 +1,25 @@
+# CODEOWNERS — org-wide default
+#
+# Per-repo CODEOWNERS files override this. Keep each repo's reviewer group small
+# (3-5 people) to minimise PR latency (ADR-0002, B-07).
+
+# Default owner for anything in the org without a repo-specific CODEOWNERS
+* @openaiflex/maintainers
+
+# Templates in this repo
+.github/workflows/     @openaiflex/devops
+CODEOWNERS             @openaiflex/maintainers
+*.md                   @openaiflex/docs
+
+# Per-component suggested reviewer groups (migrate into each repo on creation):
+#
+# core/                  @openaiflex/core-maintainers
+# sogno-platform         @openaiflex/sogno-maintainers
+# oet-*                  @openaiflex/oet-maintainers
+# connector-re4de        @openaiflex/connector-maintainers @openaiflex/fit-iee-liaison
+# connector-edc          @openaiflex/connector-maintainers
+# connector-onenet-*     @openaiflex/connector-maintainers
+# adapters-romeflex      @openaiflex/areti-liaison @openaiflex/connector-maintainers
+# adapters-austria       @openaiflex/netz-no-liaison @openaiflex/wiener-netze-liaison
+# adapters-acea-peru     @openaiflex/acea-peru-liaison
+# docs                   @openaiflex/docs

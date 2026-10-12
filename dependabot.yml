@@ -1,0 +1,34 @@
+version: 2
+updates:
+  # GitHub Actions used by reusable workflows in this repo
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    labels: ["dependencies", "ci"]
+    groups:
+      actions-minor-and-patch:
+        update-types: ["minor", "patch"]
+
+  # Docker base images referenced in reusable-container-build (via caller repos)
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels: ["dependencies", "docker"]
+
+  # Python templates
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels: ["dependencies", "python"]
+
+  # Node templates
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels: ["dependencies", "node"]

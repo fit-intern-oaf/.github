@@ -1,0 +1,49 @@
+name: Reusable — semantic-release
+on:
+  workflow_call:
+    inputs:
+      zenodo-enabled:
+        description: 'Trigger Zenodo DOI minting on tag'
+        type: boolean
+        default: false
+    secrets:
+      ZENODO_TOKEN:
+        required: false
+
+permissions:
+  contents: write     # push tags + CHANGELOG commit
+  issues: write       # comment on referenced issues
+  pull-requests: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install semantic-release
+        run: |
+          npm install --no-save \
+            semantic-release@24 \
+            @semantic-release/git \
+            @semantic-release/changelog \
+            @semantic-release/exec \
+            conventional-changelog-conventionalcommits
+      - name: Run semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+
+      - name: Zenodo DOI minting (optional)
+        if: inputs.zenodo-enabled && env.ZENODO_TOKEN != ''
+        env:
+          ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
+        run: |
+          # Placeholder — concrete minting handled by zenodraft or a project script.
+          # TODO (WS-A release engineer): wire against `.zenodo.json` metadata file.
+          echo "Zenodo minting would run for tag ${GITHUB_REF_NAME}"

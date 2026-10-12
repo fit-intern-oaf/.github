@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability (private)
+    url: https://github.com/openaiflex/.github/security/advisories/new
+    about: Report security issues privately via GitHub.
+  - name: General question / discussion
+    url: https://github.com/openaiflex/.github/discussions
+    about: Please ask questions in Discussions, not Issues.

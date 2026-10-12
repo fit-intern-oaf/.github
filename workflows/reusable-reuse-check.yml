@@ -1,0 +1,13 @@
+name: Reusable — REUSE licence check
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  reuse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: fsfe/reuse-action@v5

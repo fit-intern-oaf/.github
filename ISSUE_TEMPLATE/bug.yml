@@ -1,0 +1,58 @@
+name: Bug report
+description: Report a defect in an OpenAIFlex component
+labels: ["bug", "triage"]
+body:
+  - type: input
+    id: repo
+    attributes:
+      label: Affected repository
+      placeholder: openaiflex/connector-edc
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version / commit SHA
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour (include logs)
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      placeholder: |
+        - OS:
+        - Container runtime:
+        - Deployment target (local docker-compose / K8s / Aachen lab / Rome / Austria):
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-flight
+      options:
+        - label: I searched existing issues
+          required: true
+        - label: This is not a security issue (otherwise see SECURITY.md)
+          required: true

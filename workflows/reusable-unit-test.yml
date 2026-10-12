@@ -1,0 +1,62 @@
+name: Reusable — Unit tests
+on:
+  workflow_call:
+    inputs:
+      python-matrix:
+        description: 'JSON array of Python versions to test against'
+        type: string
+        default: '["3.11", "3.12"]'
+      node-version:
+        type: string
+        default: "20"
+      has-python:
+        type: boolean
+        default: true
+      has-node:
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    if: inputs.has-python
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ${{ fromJSON(inputs.python-matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install project (dev extras)
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f pyproject.toml ]; then pip install -e ".[dev]"; \
+          elif [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; \
+          elif [ -f requirements.txt ]; then pip install -r requirements.txt pytest pytest-cov; \
+          else pip install pytest pytest-cov; fi
+        shell: bash
+      - name: pytest
+        run: pytest -q --cov --cov-report=xml --cov-report=term
+      - uses: codecov/codecov-action@v4
+        if: always()
+        with:
+          files: coverage.xml
+          fail_ci_if_error: false
+
+  node:
+    if: inputs.has-node
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: npm
+      - run: npm ci
+      - run: npm test --if-present -- --coverage
