@@ -12,6 +12,10 @@ on:
       exit-code:
         type: string
         default: "1"
+      trivy-version:
+        description: "Trivy binary version to pin (empty = action default)."
+        type: string
+        default: "v0.56.2"
 
 permissions:
   contents: read
@@ -25,13 +29,17 @@ jobs:
       - name: Trivy filesystem scan
         uses: aquasecurity/trivy-action@0.35.0
         with:
+          # Pin trivy binary so we don't inherit regressions from "latest".
+          version: ${{ inputs.trivy-version }}
           scan-type: fs
           scan-ref: .
+          scanners: vuln
           severity: ${{ inputs.severity }}
           exit-code: ${{ inputs.exit-code }}
           ignore-unfixed: true
           format: sarif
           output: trivy-fs.sarif
+          limit-severities-for-sarif: true
       - uses: github/codeql-action/upload-sarif@v3
         # SARIF upload hits the GitHub code-scanning API which requires GHAS
         # on private repos. Skip on private; trivy itself still fails the build
@@ -49,12 +57,16 @@ jobs:
       - name: Trivy image scan
         uses: aquasecurity/trivy-action@0.35.0
         with:
+          # Pin trivy binary so we don't inherit regressions from "latest".
+          version: ${{ inputs.trivy-version }}
           image-ref: ${{ inputs.image-ref }}
+          scanners: vuln
           severity: ${{ inputs.severity }}
           exit-code: ${{ inputs.exit-code }}
           ignore-unfixed: true
           format: sarif
           output: trivy-image.sarif
+          limit-severities-for-sarif: true
       - uses: github/codeql-action/upload-sarif@v3
         if: always() && github.event.repository.visibility == 'public'
         with:
