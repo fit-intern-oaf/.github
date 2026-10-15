@@ -43,7 +43,7 @@ jobs:
         shell: bash
       - name: pytest
         run: pytest -q --cov --cov-report=xml --cov-report=term
-      - uses: codecov/codecov-action@v4
+      - uses: codecov/codecov-action@v7
         if: always()
         with:
           files: coverage.xml
