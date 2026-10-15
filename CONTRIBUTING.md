@@ -41,7 +41,7 @@ profile update). Coordinate as follows:
 - Unit tests run via `reusable-unit-test.yml` on push + PR.
 - Interop tests run from `openaiflex/core` via `task test-interop`; required
   before `main` → tag.
-- Lab validation (A-34, A-35) is manual at M5–M6; see `project-docs`.
+- Lab validation (Aachen lab + FIT test cluster) is manual at M5–M6; see `project-docs`.
 
 ## Reporting issues
 
@@ -53,5 +53,5 @@ profile update). Coordinate as follows:
 ## Getting help
 
 - GitHub Discussions on each repo for Q&A.
-- `#openaiflex-dev` on LF Energy Matrix / Slack (set up by M6, B-25).
+- `#openaiflex-dev` on LF Energy Matrix / Slack (set up by M6).
 - Direct contact: Fraunhofer FIT project lead — see `SECURITY.md`.
